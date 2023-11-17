@@ -9,8 +9,10 @@ export class QuestionResolver {
   constructor(private readonly questionService: QuestionService) {}
 
   @Mutation(() => Question)
-  createQuestion(@Args('createQuestionInput') createQuestionInput: CreateQuestionInput) {
-    return this.questionService.create(createQuestionInput);
+  createQuestion(
+    @Args('questionnaireId') questionnaireId: number,
+    @Args('createQuestionInput') createQuestionInput: CreateQuestionInput) {
+    return this.questionService.create(questionnaireId,createQuestionInput);
   }
 
   @Query(() => [Question], { name: 'question' })
@@ -24,8 +26,10 @@ export class QuestionResolver {
   }
 
   @Mutation(() => Question)
-  updateQuestion(@Args('updateQuestionInput') updateQuestionInput: UpdateQuestionInput) {
-    return this.questionService.update(updateQuestionInput.id, updateQuestionInput);
+  updateQuestion(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('updateQuestionInput') updateQuestionInput: UpdateQuestionInput) {
+    return this.questionService.update(id, updateQuestionInput);
   }
 
   @Mutation(() => Question)

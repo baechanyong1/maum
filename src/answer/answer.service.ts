@@ -33,19 +33,19 @@ export class AnswerService {
     return this.answerRepository.find();
   }
 
-  async findById(answerId: number): Promise<Answer> {
+  async findOne(answerId: number): Promise<Answer> {
     return await this.answerRepository.findOne({
       where: { answerId },
     });
   }
 
   async updateAnswer(id: number, updateAnswerInput: UpdateAnswerInput): Promise<Answer> {
-    const answer = await this.findById(id);
+    const answer = await this.findOne(id);
     return await this.answerRepository.save(updateAnswerInput);
   }
 
   async deleteAnswer(id: number) {
-    const answer = await this.findById(id);
+    const answer = await this.findOne(id);
     return await this.answerRepository.delete(id);
   }
 }
