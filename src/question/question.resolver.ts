@@ -16,8 +16,8 @@ export class QuestionResolver {
   }
 
   @Query(() => [Question], { name: 'question' })
-  findAll() {
-    return this.questionService.findAll();
+  findAll(@Args('id', { type: () => Int }) id: number) {
+    return this.questionService.findAll(id);
   }
 
   @Query(() => Question, { name: 'question' })

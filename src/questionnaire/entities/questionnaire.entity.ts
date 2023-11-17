@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Completed } from 'src/completed/entities/completed.entity';
 import { Question } from 'src/question/entities/question.entity';  
 import {
     Column,
@@ -16,6 +17,9 @@ import {
 
     @OneToMany(() => Question, (question) => question.questionnaire)
     question: Question[];
+
+    @OneToMany(() => Completed, (completed) => completed.questionnaire)
+    Completed: Completed[];  
 
     @Field(()=>String)
     @Column()

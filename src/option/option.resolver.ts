@@ -9,10 +9,13 @@ export class OptionResolver {
   constructor(private readonly optionService: OptionService) {}
 
   @Mutation(() => Option)
-  createOption(@Args('createOptionInput') createOptionInput: CreateOptionInput) {
-    return this.optionService.create(createOptionInput);
+  createOption(
+    @Args('questionId') questionId: number,
+    @Args('createOptionInput') createOptionInput: CreateOptionInput) {
+    return this.optionService.create(questionId, createOptionInput);
   }
 
+  // api 다 완료 후 작성 예정
   @Query(() => [Option], { name: 'option' })
   findAll() {
     return this.optionService.findAll();
@@ -25,9 +28,9 @@ export class OptionResolver {
 
   @Mutation(() => Option)
   updateOption(
-    @Args('optionId', { type: () => Int }) optionId: number,
+    @Args('id', { type: () => Int }) id: number,
     @Args('updateOptionInput') updateOptionInput: UpdateOptionInput) {
-    return this.optionService.update(optionId, updateOptionInput);
+    return this.optionService.update(id, updateOptionInput);
   }
 
   @Mutation(() => Option)

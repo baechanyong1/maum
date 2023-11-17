@@ -15,18 +15,22 @@ private questionRepository: Repository<Question>,
 private questionnaireRepository: Repository<Questionnaire>
   ){}
   async create(questionnaireId: number ,createQuestionInput: CreateQuestionInput) {
-    const question = await this.questionnaireRepository.findOne({where : {questionnaireId}})
+    const questionnaire = await this.questionnaireRepository.findOne({where : {questionnaireId}})
     return await this.questionRepository.save(createQuestionInput)
   }
 
-  async findAll() {
-    return `This action returns all question`;
+  async findAll(questionnaireId: number) {
+    return this.questionRepository.find({
+      where: { questionnaire: { questionnaireId } },
+      relations: ['options'],
+    });
   }
 
   async findOne(questionId: number): Promise<Question> {
-    return await this.questionRepository.findOne({
+    const question = await this.questionRepository.findOne({
       where : {questionId}
     })
+    return question
   }
 
   async update(id: number, updateQuestionInput: UpdateQuestionInput) {

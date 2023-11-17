@@ -17,7 +17,7 @@ export class Completed {
 
   @ManyToOne(() => Questionnaire)
   @JoinColumn({ name: 'questionnaireId' })
-  questionnaireId: number;
+  questionnaire: Questionnaire;
 
   @Field(()=>String)
   @Column()
