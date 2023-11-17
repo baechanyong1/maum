@@ -10,7 +10,7 @@ export class QuestionnaireService {
   @InjectRepository(Questionnaire)
   private questionnaireRepository: Repository<Questionnaire>;
 
-  async create(createQuestionnaireInput: CreateQuestionnaireInput) {
+  async createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput) {
     await this.questionnaireRepository.save(createQuestionnaireInput);
   }
 
@@ -24,12 +24,12 @@ export class QuestionnaireService {
     });
   }
 
-  async update(id: number, updateQuestionnaireInput: UpdateQuestionnaireInput): Promise<Questionnaire> {
+  async updateQuestionnaire(id: number, updateQuestionnaireInput: UpdateQuestionnaireInput): Promise<Questionnaire> {
     const questionnaire = await this.findOne(id);
     return await this.questionnaireRepository.save(updateQuestionnaireInput);
   }
 
-  async remove(id: number) {
+  async removeQuestionnaire(id: number) {
     const questionnaire = await this.findOne(id);
     return await this.questionnaireRepository.delete(id);
   }

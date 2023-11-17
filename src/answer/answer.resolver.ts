@@ -36,6 +36,6 @@ export class AnswerResolver {
 
   @Mutation(() => Answer)
   async deleteAnswer(@Args('id',{ type: () => Int }) id: number) {
-    return this.answerService.deleteAnswer(id);
+    return this.answerService.removeAnswer(id);
   }
 }

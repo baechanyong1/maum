@@ -14,7 +14,7 @@ private questionRepository: Repository<Question>,
 @InjectRepository(Questionnaire)
 private questionnaireRepository: Repository<Questionnaire>
   ){}
-  async create(questionnaireId: number ,createQuestionInput: CreateQuestionInput) {
+  async createQuestion(questionnaireId: number ,createQuestionInput: CreateQuestionInput) {
     const questionnaire = await this.questionnaireRepository.findOne({where : {questionnaireId}})
     return await this.questionRepository.save(createQuestionInput)
   }
@@ -33,12 +33,12 @@ private questionnaireRepository: Repository<Questionnaire>
     return question
   }
 
-  async update(id: number, updateQuestionInput: UpdateQuestionInput) {
+  async updateQuestion(id: number, updateQuestionInput: UpdateQuestionInput) {
     const question = await this.findOne(id)
     return await this.questionRepository.save(updateQuestionInput)
   }
 
-  async remove(id: number) {
+  async removeQuestion(id: number) {
     const question = await this.findOne(id)
     return await this.questionRepository.delete(id)
   }

@@ -15,12 +15,12 @@ export class OptionService {
     private questionRepository: Repository<Question>
   )
   {}
-  async create(questionId: number, createOptionInput: CreateOptionInput) {
+  async createOption(questionId: number, createOptionInput: CreateOptionInput) {
     const question = await this.questionRepository.findOne({where: { questionId }})
     return await this.optionRepository.save(createOptionInput)
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all option`;
   }
 
@@ -31,12 +31,12 @@ export class OptionService {
     return option
   }
 
-  async update(id: number, updateOptionInput: UpdateOptionInput) {
+  async updateOption(id: number, updateOptionInput: UpdateOptionInput) {
     const option = await this.findOne(id)
     return await this.questionRepository.save(updateOptionInput)
   }
 
-  async remove(id: number) {
+  async removeOption(id: number) {
     const option = await this.findOne(id)
     return await this.optionRepository.delete(id)
   }

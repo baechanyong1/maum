@@ -44,7 +44,7 @@ export class AnswerService {
     return await this.answerRepository.save(updateAnswerInput);
   }
 
-  async deleteAnswer(id: number) {
+  async removeAnswer(id: number) {
     const answer = await this.findOne(id);
     return await this.answerRepository.delete(id);
   }
