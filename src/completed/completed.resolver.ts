@@ -24,13 +24,6 @@ export class CompletedResolver {
   }
 
   @Mutation(() => Completed)
-  updateCompleted(
-    @Args('completedId', { type: () => Int }) completedId: number,
-    @Args('updateCompletedInput') updateCompletedInput: UpdateCompletedInput) {
-    return this.completedService.update(completedId, updateCompletedInput);
-  }  
-
-  @Mutation(() => Completed)
   removeCompleted(@Args('id', { type: () => Int }) id: number) {
     return this.completedService.remove(id);
   }

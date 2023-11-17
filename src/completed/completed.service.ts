@@ -16,10 +16,6 @@ export class CompletedService {
     return `This action returns a #${id} completed`;
   }
 
-  update(id: number, updateCompletedInput: UpdateCompletedInput) {
-    return `This action updates a #${id} completed`;
-  }
-
   remove(id: number) {
     return `This action removes a #${id} completed`;
   }

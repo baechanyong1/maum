@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateQuestionnaireInput } from './dto/create-questionnaire.input';
 import { UpdateQuestionnaireInput } from './dto/update-questionnaire.input';
+import { Questionnaire } from './entities/questionnaire.entity';
 
 @Injectable()
 export class QuestionnaireService {
-  create(createQuestionnaireInput: CreateQuestionnaireInput) {
-    return 'This action adds a new questionnaire';
+  @InjectRepository(Questionnaire)
+  private questionnaireRepository: Repository<Questionnaire>;
+
+  async create(createQuestionnaireInput: CreateQuestionnaireInput) {
+    await this.questionnaireRepository.save(createQuestionnaireInput);
   }
 
-  findAll() {
-    return `This action returns all questionnaire`;
+  async findAll() {
+    return this.questionnaireRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} questionnaire`;
+  async findOne(questionnaireId: number): Promise<Questionnaire> {
+    return await this.questionnaireRepository.findOne({
+      where: { questionnaireId },
+    });
   }
 
-  update(id: number, updateQuestionnaireInput: UpdateQuestionnaireInput) {
-    return `This action updates a #${id} questionnaire`;
+  async update(id: number, updateQuestionnaireInput: UpdateQuestionnaireInput): Promise<Questionnaire> {
+    const questionnaire = await this.findOne(id);
+    return await this.questionnaireRepository.save(updateQuestionnaireInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} questionnaire`;
+  async remove(id: number) {
+    const questionnaire = await this.findOne(id);
+    return await this.questionnaireRepository.delete(id);
   }
 }
