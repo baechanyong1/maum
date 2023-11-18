@@ -26,6 +26,9 @@ export class Option {
   @OneToMany(() => Answer, (answer) => answer.option)
   answers: Answer[];
 
+  @Field()
+  questionId:number
+
   @Field(() => String)
   @Column()
   desc: string;
