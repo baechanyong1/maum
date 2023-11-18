@@ -32,4 +32,9 @@ export class QuestionnaireResolver {
   async removeQuestionnaire(@Args('id', { type: () => Int }) id: number) {
     return this.questionnaireService.removeQuestionnaire(id);
   }
+
+  @Query(() => [Questionnaire], { name: 'AllOfByQuestionnaireId'})
+  async findAllByQuestionnaireId(@Args('questionnaireId') questionnaireId: number): Promise<Questionnaire[]> {
+    return this.questionnaireService.findAllByQuestionnaireId(questionnaireId);
+  }
 }

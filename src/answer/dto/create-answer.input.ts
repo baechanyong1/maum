@@ -6,6 +6,6 @@ export class CreateAnswerInput {
   @Field()
   desc: string;
 
-  @Field(() => Int)
-  point: number;
+  // @Field(() => Int)
+  // point: number;
 }

@@ -16,7 +16,7 @@ import { QuestionnaireModule } from './questionnaire/questionnaire.module';
       driver: ApolloDriver,
       debug: false,
       playground: true,
-      autoSchemaFile: true,
+      autoSchemaFile: 'schema.gql',
     }),
     OptionModule,
     AnswerModule,

@@ -10,12 +10,16 @@ export class QuestionnaireService {
   @InjectRepository(Questionnaire)
   private questionnaireRepository: Repository<Questionnaire>;
 
-  async createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput) {
-    await this.questionnaireRepository.save(createQuestionnaireInput);
+  async createQuestionnaire(
+    createQuestionnaireInput: CreateQuestionnaireInput,
+  ) {
+    const save = await this.questionnaireRepository.save(createQuestionnaireInput);
+    console.log(save)
+    return save
   }
 
   async findAll() {
-    return this.questionnaireRepository.find()
+    return this.questionnaireRepository.find();
   }
 
   async findOne(questionnaireId: number): Promise<Questionnaire> {
@@ -24,7 +28,10 @@ export class QuestionnaireService {
     });
   }
 
-  async updateQuestionnaire(id: number, updateQuestionnaireInput: UpdateQuestionnaireInput): Promise<Questionnaire> {
+  async updateQuestionnaire(
+    id: number,
+    updateQuestionnaireInput: UpdateQuestionnaireInput,
+  ): Promise<Questionnaire> {
     const questionnaire = await this.findOne(id);
     return await this.questionnaireRepository.save(updateQuestionnaireInput);
   }
@@ -33,4 +40,23 @@ export class QuestionnaireService {
     const questionnaire = await this.findOne(id);
     return await this.questionnaireRepository.delete(id);
   }
+
+  async findAllByQuestionnaireId(questionnaireId: number): Promise<Questionnaire[]> {
+    const result = await this.questionnaireRepository.find({
+      where: { questionnaireId },
+      relations: [
+        'questions',
+        'questions.options',
+        'questions.options.answers',
+      ],
+    });
+  
+    // 배열의 각 원소에 접근하여 desc 속성 출력
+    result.forEach(questionnaire => {
+      console.log(questionnaire.desc);
+    });
+  
+    return result;
+  }
+  
 }

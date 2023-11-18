@@ -17,10 +17,12 @@ export class Option {
   @PrimaryGeneratedColumn()
   optionId: number;
 
+  @Field(() => [Question], {nullable:true})
   @ManyToOne(() => Question, (question) => question.options)
   @JoinColumn({ name: 'questionId' })
   question: Question;
 
+  @Field(() => [Answer], { nullable : true})
   @OneToMany(() => Answer, (answer) => answer.option)
   answers: Answer[];
 

@@ -12,8 +12,9 @@ export class QuestionResolver {
   async createQuestion(
     @Args('questionnaireId') questionnaireId: number,
     @Args('createQuestionInput') createQuestionInput: CreateQuestionInput) {
-    return this.questionService.createQuestion(questionnaireId,createQuestionInput);
-  }
+      return this.questionService.createQuestion(questionnaireId, createQuestionInput);
+    }
+
 
   @Query(() => [Question], { name: 'question' })
   async findAll(@Args('id', { type: () => Int }) id: number) {

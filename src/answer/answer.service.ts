@@ -12,22 +12,29 @@ export class AnswerService {
     @InjectRepository(Answer)
     private answerRepository: Repository<Answer>,
     @InjectRepository(Option)
-    private optionRepository: Repository<Option>, 
+    private optionRepository: Repository<Option>,
   ) {}
 
   async createAnswer(optionId: number, createAnswerInput: CreateAnswerInput) {
-    const option = await this.optionRepository.findOne({where : {optionId}});
-
-    if (!option) {
-      // 처리할 로직 추가: 해당하는 option이 없을 때의 예외 처리 등
-    }
-
+    const maxPoint = await this.answerRepository
+      .createQueryBuilder('answer')
+      .select('MAX(answer.point)', 'maxPoint')
+      .where('answer.optionId = :optionId', { optionId })
+      .getRawOne();
+  
+    const newPoint = maxPoint ? maxPoint.maxPoint + 1 : 0;
+  
     const answer = new Answer();
     answer.desc = createAnswerInput.desc;
+    answer.point = newPoint;
+    const option = await this.optionRepository.findOne({where:{optionId}});
     answer.option = option;
-
-    return await this.answerRepository.save(answer);
+  
+    const savedAnswer = await this.answerRepository.save(answer);
+  
+    return savedAnswer;
   }
+  
 
   async findAll(): Promise<Answer[]> {
     return this.answerRepository.find();
@@ -39,7 +46,10 @@ export class AnswerService {
     });
   }
 
-  async updateAnswer(id: number, updateAnswerInput: UpdateAnswerInput): Promise<Answer> {
+  async updateAnswer(
+    id: number,
+    updateAnswerInput: UpdateAnswerInput,
+  ): Promise<Answer> {
     const answer = await this.findOne(id);
     return await this.answerRepository.save(updateAnswerInput);
   }

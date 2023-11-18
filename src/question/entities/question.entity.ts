@@ -17,13 +17,18 @@ export class Question {
   @PrimaryGeneratedColumn()
   questionId: number;
 
+  @Field(() => [Option], {nullable:true})
   @OneToMany(() => Option, (option) => option.question)
   options: Option[];
 
-  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.question)
+  @Field(() => Questionnaire, {nullable:true})
+  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions)
   @JoinColumn({ name: 'questionnaireId' })
   questionnaire: Questionnaire;
 
+  @Field()
+  questionnaireId:number
+  
   @Field(()=>String)
   @Column()
   desc: string;
