@@ -14,9 +14,9 @@ export class CompletedResolver {
   }
   
 
-  @Query(() => [Completed], { name: 'completed' })
-  findAll() {
-    return this.completedService.findAll();
+  @Query(() => [Completed], { name: 'completedByQuestionnaireId' })
+  findAll(@Args('id', { type: () => Int }) id: number) {
+    return this.completedService.findAll(id);
   }
 
   @Query(() => Completed, { name: 'completed' })

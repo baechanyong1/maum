@@ -20,33 +20,38 @@ export class CompletedService {
     // question 배열의 각 요소에 point를 추가하여 새로운 배열을 생성
     const questionWithPoints = await Promise.all(question.map(async ({ answerId, optionId }) => {
       const point = await this.getPointByAnswerId(answerId);
-      // answerId, optionId, point를 question에 추가
       return {
-        answerId,
         optionId,
+        answerId,
         point,
       };
     }));
-    // questionWithPoints 배열을 순회하면서 point를 더함
     for (const item of questionWithPoints) {
       totalPoints += item.point;
     }
     const completed = new Completed();
     completed.questionnaireId = questionnaireId;
-    completed.question = questionWithPoints; // question 대신 questionWithPoints 사용
+    completed.question = questionWithPoints; 
     completed.total = totalPoints;
     console.log(completed);
     return this.completedRepository.save(completed);
   }
-  findAll() {
-    return `This action returns all completed`;
+
+  async findAll(questionnaireId: number) {
+    const result = await this.completedRepository
+      .createQueryBuilder('completed')
+      .where('completed.questionnaireId = :questionnaireId', { questionnaireId })
+      .getMany();
+  console.log(result)
+    return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} completed`;
+  async findOne(completedId: number) {
+    const result = await this.completedRepository.findOne({where:{completedId}});
+    console.log(result)
+    return result
   }
-
-  // 여기서 null반환
+  
   private async getPointByAnswerId(answerId: number): Promise<number> {
     console.log("아이디", answerId)
     const answer = await this.answerRepository.findOne({
@@ -61,11 +66,4 @@ export class CompletedService {
       return 0;
     }
   }
-  
-  // 설문지 id와 선택지 id, 답변 id + 포인트를 받아서 저장
-  // 받은 포인트들의 총점도 저장 = total
-
-  // 설문지 완료 요청은 completion
-  // 설문지 완료는 {optionId, answerId, point } total 이렇게 저장할 예정
-  // 설문지 조회는 completed로 엔드포인트 설정
 }

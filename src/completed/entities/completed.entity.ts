@@ -16,7 +16,6 @@ export class Completed {
   completedId: number;
 
   @ManyToOne(() => Questionnaire)
-  // @JoinColumn({ name: 'questionnaireId' })
   questionnaire: Questionnaire;
 
   @Field(() => Int)
@@ -25,7 +24,7 @@ export class Completed {
   questionnaireId: number;
 
   @Field(() => [AnswerType])
-  @Column('text', { array: true })
+  @Column('json')
   question: AnswerType[];
 
   @Field(() => Int)
@@ -34,13 +33,13 @@ export class Completed {
 }
 
 @ObjectType()
-class AnswerType {
-  @Field(() => Int)
+export class AnswerType {
+  @Field(() => Int, { nullable: true })
   optionId: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   answerId: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   point: number;
 }
