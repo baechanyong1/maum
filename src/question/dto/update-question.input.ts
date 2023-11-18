@@ -1,8 +1,15 @@
-import { CreateQuestionnaireInput } from 'src/questionnaire/dto/create-questionnaire.input'; 
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
 @InputType()
-export class UpdateQuestionInput extends PartialType(CreateQuestionnaireInput) {
+export class UpdateQuestionInput {
   @Field(() => Int)
+  @IsNumber()
+  @IsNotEmpty()
   id: number;
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  readonly desc: string;
 }

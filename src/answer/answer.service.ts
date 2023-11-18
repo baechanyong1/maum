@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Answer } from './entities/answer.entity';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
 import { Option } from '../option/entities/option.entity';
+import * as _ from 'lodash';
 
 @Injectable()
 export class AnswerService {
@@ -21,41 +22,47 @@ export class AnswerService {
       .select('MAX(answer.point)', 'maxPoint')
       .where('answer.optionId = :optionId', { optionId })
       .getRawOne();
-  
+
     const newPoint = maxPoint ? maxPoint.maxPoint + 1 : 0;
-  
+
     const answer = new Answer();
     answer.desc = createAnswerInput.desc;
     answer.point = newPoint;
-    const option = await this.optionRepository.findOne({where:{optionId}});
+    const option = await this.optionRepository.findOne({ where: { optionId } });
+    if (_.isNil(answer)) {
+      throw new NotFoundException('Not found option');
+    }
     answer.option = option;
-  
+
     const savedAnswer = await this.answerRepository.save(answer);
-  
+
     return savedAnswer;
   }
-  
 
   async findAll(): Promise<Answer[]> {
     return this.answerRepository.find();
   }
 
   async findOne(answerId: number): Promise<Answer> {
-    return await this.answerRepository.findOne({
+    const answer = await this.answerRepository.findOne({
       where: { answerId },
     });
+    if (_.isNil(answer)) {
+      throw new NotFoundException('Not found answer');
+    }
+    return answer;
   }
 
   async updateAnswer(
     id: number,
     updateAnswerInput: UpdateAnswerInput,
   ): Promise<Answer> {
-    const answer = await this.findOne(id);
+    await this.findOne(id);
     return await this.answerRepository.save(updateAnswerInput);
   }
 
   async removeAnswer(id: number) {
-    const answer = await this.findOne(id);
+    await this.findOne(id);
     return await this.answerRepository.delete(id);
   }
 }
