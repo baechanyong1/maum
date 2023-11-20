@@ -61,8 +61,20 @@ export class QuestionService {
   }
 
   async updateQuestion(id: number, updateQuestionInput: UpdateQuestionInput) {
-    await this.findOne(id);
-    return await this.questionRepository.save(updateQuestionInput);
+    const existingQuestion = await this.findOne(id);
+
+    if(!existingQuestion){
+      throw new NotFoundException('Question not found')
+    }
+    const updateResult = await this.questionRepository.update(id, updateQuestionInput);
+  
+    if (updateResult.affected === 1) {
+      // 업데이트가 성공했다면 업데이트된 엔터티를 반환합니다.
+      return await this.questionRepository.findOne({ where: { questionId: id } });
+    } else {
+      // 업데이트가 실패하거나 영향을 받은 레코드가 없는 경우 예외를 throw합니다.
+      throw new NotFoundException('Questionnaire not found');
+    }
   }
 
   async removeQuestion(id: number) {

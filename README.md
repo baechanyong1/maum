@@ -22,7 +22,6 @@ postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사�
 /src/config/mail.config.ts 파일 확인 :arrow_right: 에러 발생 시 메일을 보내기 위해 mailConfig 작성이 필요합니다.
 <h3>서버 실행 순서<h3>
 :arrow_down: npm install<br>
-:arrow_down: ts-node -r tsconfig-paths/register seed.ts(더미데이터 생성)<br>
 :arrow_down: npm start<br>
 localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<br>
 <h4>에러 발생 시 메일 전송 및 /logs/date.log 파일에 로그가 작성됩니다.</h4>
@@ -127,7 +126,7 @@ query {
 - 매개변수:
   - `id` (Int): 설문 조사의 ID.
 - 반환값:
-  - `Completed`: 요청한 완료된 설문 조사.
+  - `Completed`: 요청한 완료된 설문 조사..<br><br>
 
 #### `question(id: Int!): Question!`
 
@@ -144,7 +143,7 @@ query {
 - 매개변수:
   - `id` (Int): 질문의 ID.
 - 반환값:
-  - `Question`: 요청한 질문의 정보.
+  - `Question`: 요청한 질문의 정보..<br><br>
 
 #### `questionnaire(id: Int!): Questionnaire!`
 
@@ -179,24 +178,25 @@ query {
 - 매개변수:
   - `id` (Int): 설문 조사의 ID.
 - 반환값:
-  - `Questionnaire`: 요청한 설문 조사의 정보.
+  - `Questionnaire`: 요청한 설문 조사의 정보..<br><br>
 
 #### `AllOfByQuestionnaireId(questionnaireId: Float!): [Questionnaire!]!`
 
 - 설명: 특정 설문 조사 ID에 속하는 모든 질문을 가져옵니다.
 
 ```
-query GetAllByQuestionnaireId($questionnaireId: Float!) {
-  AllOfByQuestionnaireId(questionnaireId: $questionnaireId) {
-    # Questionnaire 스키마에 대한 필드들이 여기 들어갑니다.
-    questionnaireId
-    questions {
-      # Question 스키마에 대한 필드들이 여기 들어갑니다.
-    }
-    completed {
-      # Completed 스키마에 대한 필드들이 여기 들어갑니다.
-    }
+query {
+  AllOfByQuestionnaireId(questionnaireId: 10) {
     desc
+    questions {
+      desc
+      options {
+        desc
+        answers {
+          desc
+        }
+      }
+    }
   }
 }
 ```
@@ -204,7 +204,7 @@ query GetAllByQuestionnaireId($questionnaireId: Float!) {
 - 매개변수:
   - `questionnaireId` (Float): 질문을 가져올 설문 조사의 ID.
 - 반환값:
-  - `[Questionnaire!]`: 요청한 설문 조사 ID에 속하는 모든 질문의 목록.
+  - `[Questionnaire!]`: 요청한 설문 조사 ID에 속하는 모든 질문의 목록..<br><br>
 
 ### GraphQL 뮤테이션
 
@@ -226,7 +226,7 @@ mutation {
   - `questionId` (Float): 질문의 ID.
   - `createOptionInput` (CreateOptionInput): 새로운 옵션의 입력 데이터.
 - 반환값:
-  - `Option`: 생성된 옵션.
+  - `Option`: 생성된 옵션..<br><br>
 
 #### `updateOption(id: Int!, updateOptionInput: UpdateOptionInput!): Option!`
 
@@ -234,7 +234,7 @@ mutation {
 
 ```
 mutation {
-  updateOption(id: 9, updateOptionInput: { id:9,desc:"desc" }) {
+  updateOption(id: 9, updateOptionInput: {desc: "desc2" }) {
     desc
   }
 }
@@ -244,7 +244,7 @@ mutation {
   - `id` (Int): 업데이트할 옵션의 ID.
   - `updateOptionInput` (UpdateOptionInput): 업데이트할 옵션의 입력 데이터.
 - 반환값:
-  - `Option`: 업데이트된 옵션.
+  - `Option`: 업데이트된 옵션..<br><br>
 
 #### `removeOption(id: Int!): Option!`
 
@@ -261,7 +261,7 @@ mutation {
   - `optionId` (Float): 답변을 생성할 옵션의 ID.
   - `createAnswerInput` (CreateAnswerInput): 새로운 답변의 입력 데이터.
 - 반환값:
-  - `Answer`: 생성된 답변.
+  - `Answer`: 생성된 답변..<br><br>
 
 #### `updateAnswer(id: Int!, updateAnswerInput: UpdateAnswerInput!): Answer!`
 
@@ -269,7 +269,7 @@ mutation {
 
 ```
 mutation {
-  updateAnswer(id: 33, updateAnswerInput: { id:33, desc:"desc2",point:2 }) {
+  updateAnswer(id: 34, updateAnswerInput: {desc: "desc2",point : 5 }) {
     desc
     point
   }
@@ -280,7 +280,7 @@ mutation {
   - `id` (Int): 업데이트할 답변의 ID.
   - `updateAnswerInput` (UpdateAnswerInput): 업데이트할 답변의 입력 데이터.
 - 반환값:
-  - `Answer`: 업데이트된 답변.
+  - `Answer`: 업데이트된 답변..<br><br>
 
 #### `deleteAnswer(id: Int!): Answer!`
 
@@ -288,7 +288,7 @@ mutation {
 - 매개변수:
   - `id` (Int): 삭제할 답변의 ID.
 - 반환값:
-  - `Answer`: 삭제된 답변.
+  - `Answer`: 삭제된 답변..<br><br>
 
 #### `completion(createCompletionInput: CreateCompletedInput!): Completed!`
 
@@ -318,7 +318,7 @@ mutation {
 - 매개변수:
   - `createCompletionInput` (CreateCompletedInput): 완료된 설문 조사의 입력 데이터.
 - 반환값:
-  - `Completed`: 생성된 완료된 설문 조사.
+  - `Completed`: 생성된 완료된 설문 조사..<br><br>
 
 #### `createQuestion(questionnaireId: Float!, createQuestionInput: CreateQuestionInput!): Question!`
 
@@ -331,12 +331,11 @@ mutation {
   }
 }
 ```
-
 - 매개변수:
   - `questionnaireId` (Float): 질문을 생성할 설문 조사의 ID.
   - `createQuestionInput` (CreateQuestionInput): 새로운 질문의 입력 데이터.
 - 반환값:
-  - `Question`: 생성된 질문.
+  - `Question`: 생성된 질문..<br><br>
 
 #### `updateQuestion(id: Int!, updateQuestionInput: UpdateQuestionInput!): Question!`
 
@@ -344,7 +343,7 @@ mutation {
 
 ```
 mutation {
-  updateQuestion(id:22 ,updateQuestionInput: { id: 22, desc: "desc2" }) {
+  updateQuestion(id: 22, updateQuestionInput: {desc: "desc2" }) {
     desc
   }
 }
@@ -354,7 +353,7 @@ mutation {
   - `id` (Int): 업데이트할 질문의 ID.
   - `updateQuestionInput` (UpdateQuestionInput): 업데이트할 질문의 입력 데이터.
 - 반환값:
-  - `Question`: 업데이트된 질문.
+  - `Question`: 업데이트된 질문..<br><br>
 
 #### `removeQuestion(id: Int!): Question!`
 
@@ -362,7 +361,7 @@ mutation {
 - 매개변수:
   - `id` (Int): 삭제할 질문의 ID.
 - 반환값:
-  - `Question`: 삭제된 질문.
+  - `Question`: 삭제된 질문..<br><br>
 
 #### `createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput!): Questionnaire!`
 
@@ -379,7 +378,7 @@ mutation {
 - 매개변수:
   - `createQuestionnaireInput` (CreateQuestionnaireInput): 새로운 설문 조사의 입력 데이터.
 - 반환값:
-  - `Questionnaire`: 생성된 설문 조사.
+  - `Questionnaire`: 생성된 설문 조사..<br><br>
 
 #### `updateQuestionnaire(updateQuestionnaireInput: UpdateQuestionnaireInput!): Questionnaire!`
 
@@ -387,16 +386,17 @@ mutation {
 
 ```
 mutation {
-  updateQuestionnaire(updateQuestionnaireInput: { id: 10, desc:"desc2" }) {
-	desc
-}
+  updateQuestionnaire(id: 9, updateQuestionnaireInput: { desc: "desc2" }) {
+    questionnaireId
+    desc
+  }
 }
 ```
 
 - 매개변수:
   - `updateQuestionnaireInput` (UpdateQuestionnaireInput): 업데이트할 설문 조사의 입력 데이터.
 - 반환값:
-  - `Questionnaire`: 업데이트된 설문 조사.
+  - `Questionnaire`: 업데이트된 설문 조사..<br><br>
 
 #### `removeQuestionnaire(id: Int!): Questionnaire!`
 

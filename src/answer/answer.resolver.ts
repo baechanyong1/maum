@@ -30,7 +30,7 @@ export class AnswerResolver {
   async updateAnswer(
     @Args('id',{ type: () => Int }) id: number,
     @Args('updateAnswerInput') updateAnswerInput: UpdateAnswerInput,
-  ): Promise<Answer> {
+  ) {
     return this.answerService.updateAnswer(id, updateAnswerInput);
   }
 

@@ -3,11 +3,6 @@ import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
 @InputType()
 export class UpdateOptionInput {
-  @Field(() => Int)
-  @IsNumber()
-  @IsNotEmpty()
-  id: number;
-
   @Field()
   @IsString()
   @IsNotEmpty()

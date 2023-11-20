@@ -24,8 +24,11 @@ export class QuestionnaireResolver {
   }
 
   @Mutation(() => Questionnaire)
-  async updateQuestionnaire(@Args('updateQuestionnaireInput') updateQuestionnaireInput: UpdateQuestionnaireInput) {
-    return this.questionnaireService.updateQuestionnaire(updateQuestionnaireInput.id, updateQuestionnaireInput);
+  async updateQuestionnaire(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('updateQuestionnaireInput') updateQuestionnaireInput: UpdateQuestionnaireInput,
+  ) {
+    return await this.questionnaireService.updateQuestionnaire(id, updateQuestionnaireInput);
   }
 
   @Mutation(() => Questionnaire)
