@@ -57,7 +57,6 @@ export class QuestionnaireService {
       ],
     });
     result.forEach((questionnaire) => {
-      console.log(questionnaire.desc);
     });
     if (_.isNil(result)) {
       throw new NotFoundException('Not found result');

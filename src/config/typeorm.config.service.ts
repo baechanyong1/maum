@@ -2,14 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Answer } from 'src/answer/entities/answer.entity';
-import { Completed } from 'src/completed/entities/completed.entity';
-import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
+import * as faker from 'faker';
 import { Question } from 'src/question/entities/question.entity';
-import { Option } from 'src/option/entities/option.entity';
+import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
+import { Option } from 'src/option/entities/option.entity'
+import { Completed } from 'src/completed/entities/completed.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+   // @InjectRepository(Answer) private readonly answerRepository: Repository<Answer>,
+  ) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
@@ -21,7 +25,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: 'postgres',
       entities: [Answer, Option, Question, Questionnaire, Completed],
       synchronize: true,
-      logging : true,
+      logging: true,
     };
   }
 }
