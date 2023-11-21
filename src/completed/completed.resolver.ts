@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { CompletedService } from './completed.service';
 import { Completed } from './entities/completed.entity';
 import { CreateCompletedInput } from './dto/create-completed.input';
-import { UpdateCompletedInput } from './dto/update-completed.input';
 
 @Resolver(() => Completed)
 export class CompletedResolver {
@@ -15,7 +14,7 @@ export class CompletedResolver {
   
 
   @Query(() => [Completed], { name: 'completedByQuestionnaireId' })
-  findAll(@Args('id', { type: () => Int }) id: number) {
+  findById(@Args('id', { type: () => Int }) id: number) {
     return this.completedService.findAll(id);
   }
 

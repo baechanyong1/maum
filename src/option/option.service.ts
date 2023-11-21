@@ -30,7 +30,7 @@ export class OptionService {
   }
 
   async findAll() {
-    return `This action returns all option`;
+    return this.optionRepository.find();
   }
 
   async findOne(optionId: number): Promise<Option> {
@@ -60,7 +60,8 @@ export class OptionService {
   }
 
   async removeOption(id: number) {
-    await this.findOne(id);
-    return await this.optionRepository.delete(id);
+    const removeOption = await this.findOne(id);
+    await this.optionRepository.delete(id);
+    return removeOption
   }
 }

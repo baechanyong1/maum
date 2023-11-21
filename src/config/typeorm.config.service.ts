@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Answer } from 'src/answer/entities/answer.entity';
-import * as faker from 'faker';
 import { Question } from 'src/question/entities/question.entity';
 import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
 import { Option } from 'src/option/entities/option.entity'

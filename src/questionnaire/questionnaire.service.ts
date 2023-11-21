@@ -18,10 +18,6 @@ export class QuestionnaireService {
     return createQuestionnaireInput;
   }
 
-  async findAll() {
-    return this.questionnaireRepository.find();
-  }
-
   async findOne(questionnaireId: number): Promise<Questionnaire> {
     const questionnaire = await this.questionnaireRepository.findOne({
       where: { questionnaireId },
@@ -53,11 +49,10 @@ export class QuestionnaireService {
     }
   }
   
-  
-
   async removeQuestionnaire(id: number) {
-    await this.findOne(id);
-    return await this.questionnaireRepository.delete(id);
+    const removeQuestionnaire = await this.findOne(id);
+   await this.questionnaireRepository.delete(id);
+   return removeQuestionnaire
   }
 
   async findAllByQuestionnaireId(

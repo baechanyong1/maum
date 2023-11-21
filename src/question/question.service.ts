@@ -78,7 +78,8 @@ export class QuestionService {
   }
 
   async removeQuestion(id: number) {
-    await this.findOne(id);
-    return await this.questionRepository.delete(id);
+    const removeQuestion = await this.findOne(id);
+     await this.questionRepository.delete(id);
+     return removeQuestion
   }
 }

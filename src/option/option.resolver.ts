@@ -15,13 +15,13 @@ export class OptionResolver {
     return this.optionService.createOption(questionId, createOptionInput);
   }
 
-  // api 다 완료 후 작성 예정
+  // api 다 완료 후 작성 예정 not yet readme
   @Query(() => [Option], { name: 'option' })
   async findAll() {
     return this.optionService.findAll();
   }
   
-  @Query(() => Option, { name: 'option' })
+  @Query(() => Option, { name: 'optionByOptionId' })
   async findOne(@Args('id', { type: () => Int }) id: number) {
     return this.optionService.findOne(id);
   }

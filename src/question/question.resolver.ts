@@ -20,8 +20,8 @@ export class QuestionResolver {
   async findAll(@Args('id', { type: () => Int }) id: number) {
     return this.questionService.findAll(id);
   }
-
-  @Query(() => Question, { name: 'question' })
+// not yet readme
+  @Query(() => Question, { name: 'questionById' })
   async findOne(@Args('id', { type: () => Int }) id: number) {
     return this.questionService.findOne(id);
   }

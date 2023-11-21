@@ -11,7 +11,7 @@
 <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
 
 <h3>ERD<h3>
-![Alt text](image.png)
+<img src="imgge.png" width="400" height="500px">
 
 <h4>Link<h4>
 https://www.erdcloud.com/d/wn6XsubF9MzD75iaT
@@ -39,7 +39,7 @@ localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<
 
 ```
 query {
-  option(id: 9) {
+  optionByOptionId(id: 9) {
     desc
   }
 }
@@ -249,6 +249,13 @@ mutation {
 #### `removeOption(id: Int!): Option!`
 
 - 설명: 특정 ID의 옵션을 삭제합니다.
+```
+mutation {
+  removeQuestionnaire(id: 9) {
+	desc
+  }
+}
+```
 - 매개변수:
   - `id` (Int): 삭제할 옵션의 ID.
 - 반환값:
@@ -257,6 +264,13 @@ mutation {
 #### `createAnswer(optionId: Float!, createAnswerInput: CreateAnswerInput!): Answer!`
 
 - 설명: 특정 옵션에 대한 새로운 답변을 생성합니다.
+```
+mutation {
+  createAnswer(optionId: 9, createAnswerInput: { desc: "desc~" }) {
+    desc
+  }
+}
+```
 - 매개변수:
   - `optionId` (Float): 답변을 생성할 옵션의 ID.
   - `createAnswerInput` (CreateAnswerInput): 새로운 답변의 입력 데이터.
@@ -282,9 +296,18 @@ mutation {
 - 반환값:
   - `Answer`: 업데이트된 답변..<br><br>
 
-#### `deleteAnswer(id: Int!): Answer!`
+#### `removeAnswer(id: Int!): Answer!`
 
 - 설명: 특정 ID의 답변을 삭제합니다.
+```
+mutation {
+  removeAnswer(id: 45) {
+    answerId
+    desc
+    point
+  }
+}
+```
 - 매개변수:
   - `id` (Int): 삭제할 답변의 ID.
 - 반환값:
@@ -331,6 +354,7 @@ mutation {
   }
 }
 ```
+
 - 매개변수:
   - `questionnaireId` (Float): 질문을 생성할 설문 조사의 ID.
   - `createQuestionInput` (CreateQuestionInput): 새로운 질문의 입력 데이터.
@@ -356,7 +380,13 @@ mutation {
   - `Question`: 업데이트된 질문..<br><br>
 
 #### `removeQuestion(id: Int!): Question!`
-
+```
+mutation {
+  removeQuestion(id: 19) {
+	desc
+  }
+}
+```
 - 설명: 특정 ID의 질문을 삭제합니다.
 - 매개변수:
   - `id` (Int): 삭제할 질문의 ID.
@@ -401,6 +431,13 @@ mutation {
 #### `removeQuestionnaire(id: Int!): Questionnaire!`
 
 - 설명: 특정 ID의 설문 조사를 삭제합니다.
+```
+mutation {
+  removeQuestionnaire(id: 9) {
+	desc
+  }
+}
+```
 - 매개변수:
   - `id` (Int): 삭제할 설문 조사의 ID.
 - 반환값:

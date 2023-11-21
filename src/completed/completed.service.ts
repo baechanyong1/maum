@@ -13,7 +13,7 @@ export class CompletedService {
     @InjectRepository(Answer)
     private readonly answerRepository: Repository<Answer>,
   ) {}
-
+//선택이 되지 않은 질문 항목 유효성검사
   async createCompleted(
     createCompletedInput: CreateCompletedInput,
   ): Promise<Completed> {

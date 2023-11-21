@@ -21,21 +21,21 @@ export class AnswerResolver {
     return this.answerService.findAll();
   }
 
-  @Query(() => Answer)
-  async findAnswerById(@Args('answerId') answerId: number): Promise<Answer> {
+  @Query(() => Answer, { name: 'answerById' })
+  async findOne(@Args('answerId') answerId: number): Promise<Answer> {
     return this.answerService.findOne(answerId);
   }
 
   @Mutation(() => Answer)
   async updateAnswer(
-    @Args('id',{ type: () => Int }) id: number,
+    @Args('id', { type: () => Int }) id: number,
     @Args('updateAnswerInput') updateAnswerInput: UpdateAnswerInput,
   ) {
     return this.answerService.updateAnswer(id, updateAnswerInput);
   }
 
   @Mutation(() => Answer)
-  async deleteAnswer(@Args('id',{ type: () => Int }) id: number) {
-    return this.answerService.removeAnswer(id);
+  async removeAnswer(@Args('id', { type: () => Int }) id: number) {
+    return await this.answerService.removeAnswer(id);
   }
 }
