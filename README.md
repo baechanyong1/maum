@@ -1,6 +1,6 @@
 <div align=center>
 <h3> :blush:소개 </h3>
-설문지를 생성,수정,삭제,조회가 가능한 서비스. <br>
+설문지 서비스. <br>
 설문지 생성, 수정, 삭제, 조회, 설문지 완료, 완료된 설문지 확인 기능이 있습니다
 
 <h3>사용한 기술 스택<h3>
@@ -148,7 +148,7 @@ query {
 
 ```
 query {
-  answers {
+  answer {
     desc
   }
 }
@@ -166,7 +166,6 @@ query {
   answerById(answerId: 123) {
     desc
     point
-    optionId
   }
 }
 ```
@@ -440,7 +439,7 @@ mutation {
   completion(createCompletionInput: {
     questionnaireId: 10,
     question: [
-      { optionId: 9, answerId: 33, point:0 },
+      { optionId: 9, answerId: 33},
       # 다른 question 항목들을 필요에 따라 추가하세요
     ]
   }) {
