@@ -31,7 +31,7 @@ export class OptionService {
 
   async findAll() {
     const option = await this.optionRepository.find();
-    if(_.isNil(option)){
+    if(option.length===0){
       throw new NotFoundException('Not found option')
     }
     return option

@@ -367,7 +367,7 @@ mutation {
 - 설명: 특정 ID의 옵션을 삭제합니다.
 ```
 mutation {
-  removeQuestionnaire(id: 9) {
+  removeOption(id: 9) {
 	desc
   }
 }

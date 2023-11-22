@@ -41,7 +41,7 @@ export class QuestionService {
 
   async findAll() {
     const question = await this.questionRepository.find()
-    if (_.isNil(question)) {
+    if (question.length===0) {
       throw new NotFoundException('Not found question');
     }
     return question;

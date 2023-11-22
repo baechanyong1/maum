@@ -101,7 +101,6 @@ input CreateCompletedInput {
 input AnswerInput {
   optionId: Int!
   answerId: Int!
-  point: Int
 }
 
 input CreateQuestionInput {

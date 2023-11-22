@@ -10,15 +10,3 @@ export class UpdateQuestionnaireInput {
   @IsNotEmpty()
   desc: string;
 }
-
-    // // 새로운 속성을 추가
-    // @Field(() => [Int], { nullable: true })
-    // questionnaireId?: number[];
-  
-    // @Field(() => [Int], { nullable: true })
-    // questions?: number[];
-  
-    // @Field({ nullable: true })
-    // @IsBoolean()
-    // completed?: boolean;
-

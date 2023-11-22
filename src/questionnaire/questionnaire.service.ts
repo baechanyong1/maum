@@ -20,7 +20,7 @@ export class QuestionnaireService {
 
   async findAll(){
     const questionnaire = await this.questionnaireRepository.find()
-    if(_.isNil(questionnaire)){
+    if(questionnaire.length===0){
       throw new NotFoundException('Not found questionnaire')
     }
     return questionnaire

@@ -6,7 +6,6 @@ import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
 import { Option } from '../option/entities/option.entity';
 import * as _ from 'lodash';
-import { QueryDocumentKeys } from 'graphql/language/ast';
 
 @Injectable()
 export class AnswerService {
