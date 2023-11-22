@@ -13,7 +13,7 @@ import {
 @ObjectType()
 @Entity({ name: 'option' })
 export class Option {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   optionId: number;
 
@@ -29,7 +29,7 @@ export class Option {
   @Field()
   questionId:number
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column()
   desc: string;
 }

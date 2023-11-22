@@ -21,7 +21,7 @@ export class OptionResolver {
     return this.optionService.findAll();
   }
   
-  @Query(() => Option, { name: 'optionByOptionId' })
+  @Query(() => Option, { name: 'optionById' })
   async findOne(@Args('id', { type: () => Int }) id: number) {
     return this.optionService.findOne(id);
   }

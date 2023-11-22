@@ -11,7 +11,7 @@
 <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
 
 <h3>ERD<h3>
-<img src="imgge.png" width="400" height="500px">
+<img src="image.png" width="500" height="500px">
 
 <h4>Link<h4>
 https://www.erdcloud.com/d/wn6XsubF9MzD75iaT
@@ -33,13 +33,105 @@ localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<
 
 ---
 
-#### `option(id: Int!): Option!`
+#### `questionnaire(id: Int!): Questionnaire!`
 
-- 설명: 특정 ID의 옵션을 가져옵니다.
+- 설명: 모든 설문 조사를 가져옵니다.
 
 ```
 query {
-  optionByOptionId(id: 9) {
+  questionnaire {
+    questionnaireId
+    desc
+  }
+}
+```
+
+- 매개변수:
+  - `id` (Int): 설문 조사의 ID.
+- 반환값:
+  - `Questionnaire`: 요청한 설문 조사의 정보..<br><br>
+
+#### `AllOfByQuestionnaireId(questionnaireId: Float!): [Questionnaire!]!`
+
+- 설명: 특정 설문 조사 ID에 속하는 설문지를 가져옵니다.
+
+```
+query {
+  AllOfByQuestionnaireId(questionnaireId: 10) {
+    desc
+    questions {
+      desc
+      options {
+        desc
+        answers {
+          desc
+        }
+      }
+    }
+  }
+}
+```
+
+- 매개변수:
+  - `questionnaireId` (Float): 질문을 가져올 설문 조사의 ID.
+- 반환값:
+  - `[Questionnaire!]`: 요청한 설문 조사 ID에 속하는 모든 설문지의 목록..<br><br>
+
+
+#### `question(id: Int!): Question!`
+
+- 설명: 모든 질문을 가져옵니다.
+
+```
+query {
+  question {
+    desc
+  }
+}
+```
+
+- 반환값:
+  - `Question`: 요청한 질문의 정보..<br><br>
+
+#### `questionById(id: Int!): Question`
+
+- 설명: 해당 ID의 질문을 가져옵니다.
+
+```
+query {
+  questionById(id: 22) {
+    desc
+  }
+}
+```
+
+- 매개변수:
+  - `id` (Int): 질문의 ID.
+- 반환값:
+  - `Question`: 요청한 질문의 정보.<br><br>
+
+#### `option(id: Int!): Option!`
+
+- 설명: 모든 옵션을 가져옵니다.
+
+```
+query {
+  option {
+    desc
+  }
+}
+```
+
+- 반환값:
+  - `Option`: 모든 옵션.<br><br>
+
+#### `optionById(id: Int!): Question`
+
+- 설명: 특정 ID의 옵션을 가져옵니다
+
+```
+query {
+  optionById(id:1){
     desc
   }
 }
@@ -50,13 +142,13 @@ query {
 - 반환값:
   - `Option`: 요청한 옵션.<br><br>
 
-#### `findAllAnswers: [Answer!]!`
+#### `answers: [Answer!]!`
 
 - 설명: 모든 답변 목록을 가져옵니다.
 
 ```
 query {
-  findAllAnswers {
+  answers {
     desc
   }
 }
@@ -65,13 +157,13 @@ query {
 - 반환값:
   - `[Answer!]`: 답변 목록.<br><br>
 
-#### `findAnswerById(answerId: Float!): Answer!`
+#### `answerById(answerId: Float!): Answer!`
 
 - 설명: 특정 ID의 답변을 가져옵니다.
 
 ```
 query {
-  findAnswerById(answerId: 123) {
+  answerById(answerId: 123) {
     desc
     point
     optionId
@@ -83,26 +175,6 @@ query {
   - `answerId` (Float): 답변의 ID.
 - 반환값:
   - `Answer`: 요청한 답변.<br><br>
-
-#### `completedByQuestionnaireId(id: Int!): [Completed!]!`
-
-- 설명: 특정 ID의 설문 조사 완료 목록을 가져옵니다.
-
-```
-query {
-  completedByQuestionnaireId(id: 123) {
-    questionnaireId
-    question
-		total
-  }
-}
-
-```
-
-- 매개변수:
-  - `id` (Int): 설문 조사의 ID.
-- 반환값:
-  - `[Completed!]`: 완료된 설문 조사 목록.<br><br>
 
 #### `completed(id: Int!): Completed!`
 
@@ -128,87 +200,132 @@ query {
 - 반환값:
   - `Completed`: 요청한 완료된 설문 조사..<br><br>
 
-#### `question(id: Int!): Question!`
+  
+#### `completedByQuestionnaireId(id: Int!): [Completed!]!`
 
-- 설명: 특정 ID의 질문을 가져옵니다.
-
-```
-query {
-  question(id: 22) {
-    desc
-  }
-}
-```
-
-- 매개변수:
-  - `id` (Int): 질문의 ID.
-- 반환값:
-  - `Question`: 요청한 질문의 정보..<br><br>
-
-#### `questionnaire(id: Int!): Questionnaire!`
-
-- 설명: 특정 ID의 설문 조사를 가져옵니다.
+- 설명: 특정 ID의 설문 조사 완료 목록을 가져옵니다.
 
 ```
 query {
-  questionnaire(id: 9) {
+  completedByQuestionnaireId(id: 10) {
     questionnaireId
-    questions {
-      desc
-      options {
-        optionId
-        desc
-        answers {
-          answerId
-          desc
-          point
-        }
-      }
-    }
-    completed {
-      completedId
-      questionnaireId
-      total
-    }
-    desc
-  }
+    question{
+		optionId
+    answerId
 }
+		total
+  }
+} 
 ```
 
 - 매개변수:
   - `id` (Int): 설문 조사의 ID.
 - 반환값:
-  - `Questionnaire`: 요청한 설문 조사의 정보..<br><br>
+  - `[Completed!]`: 완료된 설문 조사 목록.<br><br>
 
-#### `AllOfByQuestionnaireId(questionnaireId: Float!): [Questionnaire!]!`
+### GraphQL 뮤테이션
 
-- 설명: 특정 설문 조사 ID에 속하는 모든 질문을 가져옵니다.
+---
+#### `createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput!): Questionnaire!`
+
+- 설명: 새로운 설문 조사를 생성합니다.
 
 ```
-query {
-  AllOfByQuestionnaireId(questionnaireId: 10) {
+mutation {
+  createQuestionnaire(createQuestionnaireInput: {desc: "desc"}) {
     desc
-    questions {
-      desc
-      options {
-        desc
-        answers {
-          desc
-        }
-      }
-    }
   }
 }
 ```
 
 - 매개변수:
-  - `questionnaireId` (Float): 질문을 가져올 설문 조사의 ID.
+  - `createQuestionnaireInput` (CreateQuestionnaireInput): 새로운 설문 조사의 입력 데이터.
 - 반환값:
-  - `[Questionnaire!]`: 요청한 설문 조사 ID에 속하는 모든 질문의 목록..<br><br>
+  - `Questionnaire`: 생성된 설문 조사..<br><br>
 
-### GraphQL 뮤테이션
+#### `updateQuestionnaire(updateQuestionnaireInput: UpdateQuestionnaireInput!): Questionnaire!`
 
----
+- 설명: 설문 조사를 업데이트합니다.
+
+```
+mutation {
+  updateQuestionnaire(id: 9, updateQuestionnaireInput: { desc: "desc2" }) {
+    questionnaireId
+    desc
+  }
+}
+```
+
+- 매개변수:
+  - `updateQuestionnaireInput` (UpdateQuestionnaireInput): 업데이트할 설문 조사의 입력 데이터.
+- 반환값:
+  - `Questionnaire`: 업데이트된 설문 조사..<br><br>
+
+#### `removeQuestionnaire(id: Int!): Questionnaire!`
+
+- 설명: 특정 ID의 설문 조사를 삭제합니다.
+```
+mutation {
+  removeQuestionnaire(id: 9) {
+	desc
+  }
+}
+```
+- 매개변수:
+  - `id` (Int): 삭제할 설문 조사의 ID.
+- 반환값:
+  - `Questionnaire`: 삭제된 설문 조사.<br><br>
+
+#### `createQuestion(questionnaireId: Float!, createQuestionInput: CreateQuestionInput!): Question!`
+
+- 설명: 특정 설문 조사에 대한 새로운 질문을 생성합니다.
+
+```
+mutation {
+  createQuestion(questionnaireId: 10, createQuestionInput: { desc:"desc" }) {
+    desc
+  }
+}
+```
+
+- 매개변수:
+  - `questionnaireId` (Float): 질문을 생성할 설문 조사의 ID.
+  - `createQuestionInput` (CreateQuestionInput): 새로운 질문의 입력 데이터.
+- 반환값:
+  - `Question`: 생성된 질문..<br><br>
+
+#### `updateQuestion(id: Int!, updateQuestionInput: UpdateQuestionInput!): Question!`
+
+- 설명: 특정 ID의 질문을 업데이트합니다.
+
+```
+mutation {
+  updateQuestion(id: 22, updateQuestionInput: {desc: "desc2" }) {
+    desc
+  }
+}
+```
+
+- 매개변수:
+  - `id` (Int): 업데이트할 질문의 ID.
+  - `updateQuestionInput` (UpdateQuestionInput): 업데이트할 질문의 입력 데이터.
+- 반환값:
+  - `Question`: 업데이트된 질문..<br><br>
+
+#### `removeQuestion(id: Int!): Question!`
+```
+mutation {
+  removeQuestion(id: 19) {
+	desc
+  }
+}
+```
+- 설명: 특정 ID의 질문을 삭제합니다.
+- 매개변수:
+  - `id` (Int): 삭제할 질문의 ID.
+- 반환값:
+  - `Question`: 삭제된 질문..<br><br>
+
 
 #### `createOption(questionId: Float!, createOptionInput: CreateOptionInput!): Option!`
 
@@ -313,6 +430,7 @@ mutation {
 - 반환값:
   - `Answer`: 삭제된 답변..<br><br>
 
+
 #### `completion(createCompletionInput: CreateCompletedInput!): Completed!`
 
 - 설명: 완료된 설문 조사를 생성합니다.
@@ -341,104 +459,4 @@ mutation {
 - 매개변수:
   - `createCompletionInput` (CreateCompletedInput): 완료된 설문 조사의 입력 데이터.
 - 반환값:
-  - `Completed`: 생성된 완료된 설문 조사..<br><br>
-
-#### `createQuestion(questionnaireId: Float!, createQuestionInput: CreateQuestionInput!): Question!`
-
-- 설명: 특정 설문 조사에 대한 새로운 질문을 생성합니다.
-
-```
-mutation {
-  createQuestion(questionnaireId: 10, createQuestionInput: { desc:"desc" }) {
-    desc
-  }
-}
-```
-
-- 매개변수:
-  - `questionnaireId` (Float): 질문을 생성할 설문 조사의 ID.
-  - `createQuestionInput` (CreateQuestionInput): 새로운 질문의 입력 데이터.
-- 반환값:
-  - `Question`: 생성된 질문..<br><br>
-
-#### `updateQuestion(id: Int!, updateQuestionInput: UpdateQuestionInput!): Question!`
-
-- 설명: 특정 ID의 질문을 업데이트합니다.
-
-```
-mutation {
-  updateQuestion(id: 22, updateQuestionInput: {desc: "desc2" }) {
-    desc
-  }
-}
-```
-
-- 매개변수:
-  - `id` (Int): 업데이트할 질문의 ID.
-  - `updateQuestionInput` (UpdateQuestionInput): 업데이트할 질문의 입력 데이터.
-- 반환값:
-  - `Question`: 업데이트된 질문..<br><br>
-
-#### `removeQuestion(id: Int!): Question!`
-```
-mutation {
-  removeQuestion(id: 19) {
-	desc
-  }
-}
-```
-- 설명: 특정 ID의 질문을 삭제합니다.
-- 매개변수:
-  - `id` (Int): 삭제할 질문의 ID.
-- 반환값:
-  - `Question`: 삭제된 질문..<br><br>
-
-#### `createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput!): Questionnaire!`
-
-- 설명: 새로운 설문 조사를 생성합니다.
-
-```
-mutation {
-  createQuestionnaire(createQuestionnaireInput: {desc: "desc"}) {
-    desc
-  }
-}
-```
-
-- 매개변수:
-  - `createQuestionnaireInput` (CreateQuestionnaireInput): 새로운 설문 조사의 입력 데이터.
-- 반환값:
-  - `Questionnaire`: 생성된 설문 조사..<br><br>
-
-#### `updateQuestionnaire(updateQuestionnaireInput: UpdateQuestionnaireInput!): Questionnaire!`
-
-- 설명: 설문 조사를 업데이트합니다.
-
-```
-mutation {
-  updateQuestionnaire(id: 9, updateQuestionnaireInput: { desc: "desc2" }) {
-    questionnaireId
-    desc
-  }
-}
-```
-
-- 매개변수:
-  - `updateQuestionnaireInput` (UpdateQuestionnaireInput): 업데이트할 설문 조사의 입력 데이터.
-- 반환값:
-  - `Questionnaire`: 업데이트된 설문 조사..<br><br>
-
-#### `removeQuestionnaire(id: Int!): Questionnaire!`
-
-- 설명: 특정 ID의 설문 조사를 삭제합니다.
-```
-mutation {
-  removeQuestionnaire(id: 9) {
-	desc
-  }
-}
-```
-- 매개변수:
-  - `id` (Int): 삭제할 설문 조사의 ID.
-- 반환값:
-  - `Questionnaire`: 삭제된 설문 조사.
+  - `Completed`: 생성된 완료된 설문 조사.

@@ -13,9 +13,10 @@ export class QuestionnaireResolver {
     return this.questionnaireService.createQuestionnaire(createQuestionnaireInput);
   }
 
-  @Query(() => Questionnaire, { name: 'questionnaire' })
-  async findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.questionnaireService.findOne(id);
+  @Query(() => [Questionnaire], { name: 'questionnaire' })
+  async findAll() {
+    const completed = await this.questionnaireService.findAll();
+    return completed
   }
 
   @Mutation(() => Questionnaire)

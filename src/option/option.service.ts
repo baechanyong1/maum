@@ -30,7 +30,11 @@ export class OptionService {
   }
 
   async findAll() {
-    return this.optionRepository.find();
+    const option = await this.optionRepository.find();
+    if(_.isNil(option)){
+      throw new NotFoundException('Not found option')
+    }
+    return option
   }
 
   async findOne(optionId: number): Promise<Option> {
@@ -51,10 +55,8 @@ export class OptionService {
     const updateResult = await this.optionRepository.update(id, updateOptionInput);
   
     if (updateResult.affected === 1) {
-      // 업데이트가 성공했다면 업데이트된 엔터티를 반환합니다.
       return await this.optionRepository.findOne({ where: { optionId: id } });
     } else {
-      // 업데이트가 실패하거나 영향을 받은 레코드가 없는 경우 예외를 throw합니다.
       throw new NotFoundException('Option not found');
     }
   }

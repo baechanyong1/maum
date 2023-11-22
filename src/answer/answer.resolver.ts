@@ -16,8 +16,8 @@ export class AnswerResolver {
     return this.answerService.createAnswer(optionId, createAnswerInput);
   }
 
-  @Query(() => [Answer])
-  async findAllAnswers(): Promise<Answer[]> {
+  @Query(() => [Answer], {name:'answer'})
+  async findAllAnswers() {
     return this.answerService.findAll();
   }
 

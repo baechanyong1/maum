@@ -18,7 +18,15 @@ export class QuestionnaireService {
     return createQuestionnaireInput;
   }
 
-  async findOne(questionnaireId: number): Promise<Questionnaire> {
+  async findAll(){
+    const questionnaire = await this.questionnaireRepository.find()
+    if(_.isNil(questionnaire)){
+      throw new NotFoundException('Not found questionnaire')
+    }
+    return questionnaire
+  }
+
+  private async findOne(questionnaireId: number): Promise<Questionnaire> {
     const questionnaire = await this.questionnaireRepository.findOne({
       where: { questionnaireId },
     });
@@ -37,14 +45,10 @@ export class QuestionnaireService {
     if (!existingQuestionnaire) {
       throw new NotFoundException('Questionnaire not found');
     }
-  
     const updateResult = await this.questionnaireRepository.update(id, updateQuestionnaireInput);
-  
     if (updateResult.affected === 1) {
-      // 업데이트가 성공했다면 업데이트된 엔터티를 반환합니다.
       return await this.questionnaireRepository.findOne({ where: { questionnaireId: id } });
     } else {
-      // 업데이트가 실패하거나 영향을 받은 레코드가 없는 경우 예외를 throw합니다.
       throw new NotFoundException('Questionnaire not found');
     }
   }

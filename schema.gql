@@ -4,7 +4,7 @@
 
 type Answer {
   answerId: Int!
-  option: Option
+  option: [Option!]
   desc: String!
   optionId: Float!
   point: Int!
@@ -40,24 +40,23 @@ type Question {
 }
 
 type Option {
-  """Example field (placeholder)"""
   optionId: Int!
   question: [Question!]
   answers: [Answer!]
   questionId: Float!
-  desc: String!
+  desc: String
 }
 
 type Query {
   option: [Option!]!
-  optionByOptionId(id: Int!): Option!
-  findAllAnswers: [Answer!]!
+  optionById(id: Int!): Option!
+  answer: [Answer!]!
   answerById(answerId: Float!): Answer!
   completedByQuestionnaireId(id: Int!): [Completed!]!
   completed(id: Int!): Completed!
-  question(id: Int!): [Question!]!
+  question: [Question!]!
   questionById(id: Int!): Question!
-  questionnaire(id: Int!): Questionnaire!
+  questionnaire: [Questionnaire!]!
   AllOfByQuestionnaireId(questionnaireId: Float!): [Questionnaire!]!
 }
 

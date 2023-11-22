@@ -39,11 +39,8 @@ export class QuestionService {
     };
   }
 
-  async findAll(questionnaireId: number) {
-    const question = await this.questionRepository.find({
-      where: { questionnaire: { questionnaireId } },
-      relations: ['options'],
-    });
+  async findAll() {
+    const question = await this.questionRepository.find()
     if (_.isNil(question)) {
       throw new NotFoundException('Not found question');
     }
