@@ -25,8 +25,9 @@ postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사�
 :arrow_down: npm start<br>
 localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<br>
 <h4>에러 발생 시 메일 전송 및 /logs/date.log 파일에 로그가 작성됩니다.</h4>
-:rotating_light: 와이파이 환경에서 nodemailer를 통해 gmail 로그인 시 에러가 발생할 수 있습니다.
-
+:rotating_light: 와이파이 환경에서 nodemailer를 통해 gmail 로그인 시 에러가 발생할 수 있습니다.<br>
+:rotating_light: Remove API 테스트 中 answer:arrow_right:option:arrow_right:question:arrow_right:questionnaire 순으로 해야합니다.<br>
+외래키 제약 조건 위반 에러가 발생할 수 있습니다. 
 </div>
 
 ## GraphQL
