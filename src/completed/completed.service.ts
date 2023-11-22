@@ -90,7 +90,7 @@ if (allQuestionIds.length !== findQuestionIds.length) {
         questionnaireId,
       })
       .getMany();
-    if (_.isNil(completed)) {
+    if (completed.length===0) {
       throw new NotFoundException('Not found completed');
     }
     return completed;

@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
 import {
   Column,

@@ -1,6 +1,6 @@
 <div align=center>
 <h3> :blush:소개 </h3>
-설문지를 생성,수정,삭제,조회가 가능한 서비스. <br>
+설문지 서비스. <br>
 설문지 생성, 수정, 삭제, 조회, 설문지 완료, 완료된 설문지 확인 기능이 있습니다
 
 <h3>사용한 기술 스택<h3>
@@ -16,7 +16,7 @@
 <h4>Link<h4>
 https://www.erdcloud.com/d/wn6XsubF9MzD75iaT
 
-<h4>서버 실행 전 확인바랍니다.</h4>
+<h4>:rotating_light:서버 실행 전 확인바랍니다.</h4>
 postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사용합니다.<br>
 /src/config/typeorm.config.service.ts 파일 확인 :arrow_right: localhost 환경의 postgres 서버를 사용하기 위해 typeormConfig 작성이 필요합니다.<br>
 /src/config/mail.config.ts 파일 확인 :arrow_right: 에러 발생 시 메일을 보내기 위해 mailConfig 작성이 필요합니다.
@@ -25,6 +25,8 @@ postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사�
 :arrow_down: npm start<br>
 localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<br>
 <h4>에러 발생 시 메일 전송 및 /logs/date.log 파일에 로그가 작성됩니다.</h4>
+:rotating_light: 와이파이 환경에서 nodemailer를 통해 gmail 로그인 시 에러가 발생할 수 있습니다.
+
 </div>
 
 ## GraphQL
@@ -148,7 +150,7 @@ query {
 
 ```
 query {
-  answers {
+  answer {
     desc
   }
 }
@@ -166,7 +168,6 @@ query {
   answerById(answerId: 123) {
     desc
     point
-    optionId
   }
 }
 ```
@@ -368,7 +369,7 @@ mutation {
 - 설명: 특정 ID의 옵션을 삭제합니다.
 ```
 mutation {
-  removeQuestionnaire(id: 9) {
+  removeOption(id: 9) {
 	desc
   }
 }
@@ -440,7 +441,7 @@ mutation {
   completion(createCompletionInput: {
     questionnaireId: 10,
     question: [
-      { optionId: 9, answerId: 33, point:0 },
+      { optionId: 9, answerId: 33},
       # 다른 question 항목들을 필요에 따라 추가하세요
     ]
   }) {

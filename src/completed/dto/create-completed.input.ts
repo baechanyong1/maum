@@ -14,9 +14,6 @@ class AnswerInput {
   @IsNotEmpty()
   answerId: number;
 
-  @Field(() => Int,{ nullable: true })
-  @IsNumber()
-  point: number;
 }
 
 @InputType()
