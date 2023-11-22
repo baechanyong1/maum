@@ -9,27 +9,31 @@ export class QuestionnaireResolver {
   constructor(private readonly questionnaireService: QuestionnaireService) {}
 
   @Mutation(() => Questionnaire)
-  createQuestionnaire(@Args('createQuestionnaireInput') createQuestionnaireInput: CreateQuestionnaireInput) {
-    return this.questionnaireService.create(createQuestionnaireInput);
+  async createQuestionnaire(@Args('createQuestionnaireInput') createQuestionnaireInput: CreateQuestionnaireInput) {
+    return this.questionnaireService.createQuestionnaire(createQuestionnaireInput);
   }
 
   @Query(() => [Questionnaire], { name: 'questionnaire' })
-  findAll() {
-    return this.questionnaireService.findAll();
-  }
-
-  @Query(() => Questionnaire, { name: 'questionnaire' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.questionnaireService.findOne(id);
+  async findAll() {
+    const completed = await this.questionnaireService.findAll();
+    return completed
   }
 
   @Mutation(() => Questionnaire)
-  updateQuestionnaire(@Args('updateQuestionnaireInput') updateQuestionnaireInput: UpdateQuestionnaireInput) {
-    return this.questionnaireService.update(updateQuestionnaireInput.id, updateQuestionnaireInput);
+  async updateQuestionnaire(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('updateQuestionnaireInput') updateQuestionnaireInput: UpdateQuestionnaireInput,
+  ) {
+    return await this.questionnaireService.updateQuestionnaire(id, updateQuestionnaireInput);
   }
 
   @Mutation(() => Questionnaire)
-  removeQuestionnaire(@Args('id', { type: () => Int }) id: number) {
-    return this.questionnaireService.remove(id);
+  async removeQuestionnaire(@Args('id', { type: () => Int }) id: number) {
+    return this.questionnaireService.removeQuestionnaire(id);
+  }
+
+  @Query(() => [Questionnaire], { name: 'AllOfByQuestionnaireId'})
+  async findAllByQuestionnaireId(@Args('questionnaireId') questionnaireId: number): Promise<Questionnaire[]> {
+    return this.questionnaireService.findAllByQuestionnaireId(questionnaireId);
   }
 }

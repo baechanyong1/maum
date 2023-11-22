@@ -16,6 +16,7 @@ export class Answer {
   @PrimaryGeneratedColumn()
   answerId: number;
 
+  @Field(() => [Option], {nullable:true})
   @ManyToOne(()=> Option, (option) => option.answers)
   @JoinColumn({ name : 'optionId'})
   option: Option
@@ -24,7 +25,10 @@ export class Answer {
   @Column()
   desc: string;
 
+  @Field()
+  optionId:number
+
   @Field(() => Int)
-  @Column()
+  @Column() 
   point: number;
 }

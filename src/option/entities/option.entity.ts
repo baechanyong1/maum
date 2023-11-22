@@ -13,18 +13,23 @@ import {
 @ObjectType()
 @Entity({ name: 'option' })
 export class Option {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   optionId: number;
 
+  @Field(() => [Question], {nullable:true})
   @ManyToOne(() => Question, (question) => question.options)
   @JoinColumn({ name: 'questionId' })
   question: Question;
 
+  @Field(() => [Answer], { nullable : true})
   @OneToMany(() => Answer, (answer) => answer.option)
   answers: Answer[];
 
-  @Field(() => String)
+  @Field()
+  questionId:number
+
+  @Field(() => String, { nullable: true })
   @Column()
   desc: string;
 }

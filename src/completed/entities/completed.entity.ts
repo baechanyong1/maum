@@ -1,5 +1,5 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity'; 
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
+import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
 import {
   Column,
   Entity,
@@ -11,19 +11,35 @@ import {
 @ObjectType()
 @Entity({ name: 'completed' })
 export class Completed {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field(() => Int, { description: '예시 필드 (플레이스홀더)' })
   @PrimaryGeneratedColumn()
   completedId: number;
 
   @ManyToOne(() => Questionnaire)
-  @JoinColumn({ name: 'questionnaireId' })
+  questionnaire: Questionnaire;
+
+  @Field(() => Int)
+  @Column()
+  @JoinColumn({ name: 'questionnaireId' }) 
   questionnaireId: number;
 
-  @Field(()=>String)
-  @Column()
-  question: string;
+  @Field(() => [AnswerType])
+  @Column('json')
+  question: AnswerType[];
 
   @Field(() => Int)
   @Column()
   total: number;
+}
+
+@ObjectType()
+export class AnswerType {
+  @Field(() => Int, { nullable: true })
+  optionId: number;
+
+  @Field(() => Int, { nullable: true })
+  answerId: number;
+
+  @Field(() => Int, { nullable: true })
+  point: number;
 }

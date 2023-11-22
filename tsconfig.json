@@ -10,6 +10,13 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@answer/*": ["src/answer/entities/*"],
+      "@question/*": ["src/question/entities/*"],
+      "@questionnaire/*": ["src/questionnaire/entities/*"],
+      "@option/*": ["src/option/entities/*"],
+      "@completed/*": ["src/completed/entities/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

@@ -1,0 +1,121 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Answer {
+  answerId: Int!
+  option: [Option!]
+  desc: String!
+  optionId: Float!
+  point: Int!
+}
+
+type Completed {
+  """예시 필드 (플레이스홀더)"""
+  completedId: Int!
+  questionnaireId: Int!
+  question: [AnswerType!]!
+  total: Int!
+}
+
+type AnswerType {
+  optionId: Int
+  answerId: Int
+  point: Int
+}
+
+type Questionnaire {
+  """Example field (placeholder)"""
+  questionnaireId: Int!
+  questions: [Question!]
+  completed: [Completed!]
+  desc: String!
+}
+
+type Question {
+  options: [Option!]
+  questionnaire: Questionnaire
+  questionnaireId: Float!
+  desc: String!
+}
+
+type Option {
+  optionId: Int!
+  question: [Question!]
+  answers: [Answer!]
+  questionId: Float!
+  desc: String
+}
+
+type Query {
+  option: [Option!]!
+  optionById(id: Int!): Option!
+  answer: [Answer!]!
+  answerById(answerId: Float!): Answer!
+  completedByQuestionnaireId(id: Int!): [Completed!]!
+  completed(id: Int!): Completed!
+  question: [Question!]!
+  questionById(id: Int!): Question!
+  questionnaire: [Questionnaire!]!
+  AllOfByQuestionnaireId(questionnaireId: Float!): [Questionnaire!]!
+}
+
+type Mutation {
+  createOption(questionId: Float!, createOptionInput: CreateOptionInput!): Option!
+  updateOption(id: Int!, updateOptionInput: UpdateOptionInput!): Option!
+  removeOption(id: Int!): Option!
+  createAnswer(optionId: Float!, createAnswerInput: CreateAnswerInput!): Answer!
+  updateAnswer(id: Int!, updateAnswerInput: UpdateAnswerInput!): Answer!
+  removeAnswer(id: Int!): Answer!
+  completion(createCompletionInput: CreateCompletedInput!): Completed!
+  createQuestion(questionnaireId: Float!, createQuestionInput: CreateQuestionInput!): Question!
+  updateQuestion(id: Int!, updateQuestionInput: UpdateQuestionInput!): Question!
+  removeQuestion(id: Int!): Question!
+  createQuestionnaire(createQuestionnaireInput: CreateQuestionnaireInput!): Questionnaire!
+  updateQuestionnaire(id: Int!, updateQuestionnaireInput: UpdateQuestionnaireInput!): Questionnaire!
+  removeQuestionnaire(id: Int!): Questionnaire!
+}
+
+input CreateOptionInput {
+  desc: String!
+}
+
+input UpdateOptionInput {
+  desc: String!
+}
+
+input CreateAnswerInput {
+  desc: String!
+}
+
+input UpdateAnswerInput {
+  desc: String!
+  point: Int!
+}
+
+input CreateCompletedInput {
+  questionnaireId: Int!
+  question: [AnswerInput!]!
+}
+
+input AnswerInput {
+  optionId: Int!
+  answerId: Int!
+  point: Int
+}
+
+input CreateQuestionInput {
+  desc: String!
+}
+
+input UpdateQuestionInput {
+  desc: String!
+}
+
+input CreateQuestionnaireInput {
+  desc: String!
+}
+
+input UpdateQuestionnaireInput {
+  desc: String!
+}

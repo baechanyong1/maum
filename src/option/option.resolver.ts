@@ -9,29 +9,32 @@ export class OptionResolver {
   constructor(private readonly optionService: OptionService) {}
 
   @Mutation(() => Option)
-  createOption(@Args('createOptionInput') createOptionInput: CreateOptionInput) {
-    return this.optionService.create(createOptionInput);
+  async createOption(
+    @Args('questionId') questionId: number,
+    @Args('createOptionInput') createOptionInput: CreateOptionInput) {
+    return this.optionService.createOption(questionId, createOptionInput);
   }
 
+  // api 다 완료 후 작성 예정 not yet readme
   @Query(() => [Option], { name: 'option' })
-  findAll() {
+  async findAll() {
     return this.optionService.findAll();
   }
-
-  @Query(() => Option, { name: 'option' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  
+  @Query(() => Option, { name: 'optionById' })
+  async findOne(@Args('id', { type: () => Int }) id: number) {
     return this.optionService.findOne(id);
   }
 
   @Mutation(() => Option)
-  updateOption(
-    @Args('optionId', { type: () => Int }) optionId: number,
+  async updateOption(
+    @Args('id', { type: () => Int }) id: number,
     @Args('updateOptionInput') updateOptionInput: UpdateOptionInput) {
-    return this.optionService.update(optionId, updateOptionInput);
+    return this.optionService.updateOption(id, updateOptionInput);
   }
 
   @Mutation(() => Option)
-  removeOption(@Args('id', { type: () => Int }) id: number) {
-    return this.optionService.remove(id);
+  async removeOption(@Args('id', { type: () => Int }) id: number) {
+    return this.optionService.removeOption(id);
   }
 }
