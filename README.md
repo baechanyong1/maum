@@ -16,7 +16,7 @@
 <h4>Link<h4>
 https://www.erdcloud.com/d/wn6XsubF9MzD75iaT
 
-<h4>서버 실행 전 확인바랍니다.</h4>
+<h4>:rotating_light:서버 실행 전 확인바랍니다.</h4>
 postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사용합니다.<br>
 /src/config/typeorm.config.service.ts 파일 확인 :arrow_right: localhost 환경의 postgres 서버를 사용하기 위해 typeormConfig 작성이 필요합니다.<br>
 /src/config/mail.config.ts 파일 확인 :arrow_right: 에러 발생 시 메일을 보내기 위해 mailConfig 작성이 필요합니다.
@@ -25,6 +25,8 @@ postgres 설치 유무 :arrow_right: localhost 환경의 postgres 서버를 사�
 :arrow_down: npm start<br>
 localhost:4000/graphql 혹은 localhost:4000/api 주소로 접속 후 테스트<br>
 <h4>에러 발생 시 메일 전송 및 /logs/date.log 파일에 로그가 작성됩니다.</h4>
+:rotating_light: 와이파이 환경에서 nodemailer를 통해 gmail 로그인 시 에러가 발생할 수 있습니다.
+
 </div>
 
 ## GraphQL
